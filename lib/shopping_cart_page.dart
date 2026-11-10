@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 
 const Color kBlue = Color(0xFF1A56DB);
@@ -9,8 +7,8 @@ const Color kBg = Color(0xFFF1F3F8);
 const Color kBorder = Color(0xFFD9DEE8);
 const Color kGrey = Color(0xFF5B6475);
 
+// Design width the layout was drawn for. Everything scales from it.
 const double _designWidth = 390;
-const double _designHeight = 940;
 
 class ShoppingCartPage extends StatelessWidget {
   const ShoppingCartPage({super.key});
@@ -80,26 +78,31 @@ class ShoppingCartPage extends StatelessWidget {
       ),
       body: LayoutBuilder(
         builder: (context, box) {
-          // Scale factor from available width AND height, so nothing overflows.
-          final double u = math
-              .min(box.maxWidth / _designWidth, box.maxHeight / _designHeight)
-              .clamp(0.5, 1.4);
+          // Scale from screen width only; the page scrolls vertically.
+          final double u = (box.maxWidth / _designWidth)
+              .clamp(0.8, 1.4)
+              .toDouble();
           final double pad = 16 * u;
+          final Widget gap = SizedBox(height: 16 * u);
 
           return MediaQuery(
             data: MediaQuery.of(context)
                 .copyWith(textScaler: TextScaler.noScaling),
-            child: Padding(
+            child: SingleChildScrollView(
               padding: EdgeInsets.all(pad),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   _intro(u),
+                  gap,
                   _deliveryCard(u),
+                  gap,
                   _orderItems(u),
+                  gap,
                   _discountBanner(u),
+                  gap,
                   _paymentSummary(u),
+                  gap,
                   _placeOrderButton(u),
                 ],
               ),
