@@ -165,7 +165,7 @@ class ShoppingCartPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Deliver to Glenn Oliva',
+                  'Deliver to John Paul Tato',
                   style: TextStyle(
                     color: kNavy,
                     fontSize: 16 * u,
